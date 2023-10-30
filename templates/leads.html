@@ -1,0 +1,308 @@
+{% extends 'main.html' %}
+
+{% block title %}
+    Dashboard | Revaa Degital Solition
+{% endblock %}
+
+{% block content %}
+    {% include 'inc/sidebar.html' %}
+    <div class="content">
+        {% include 'inc/navbar.html' %}
+        <main>
+            <div class="header">
+                <div class="left lead-and-csv">
+                    <a href="/leads"><h1>Leads</h1></a>
+                    <a href="{% url 'download' %}" class="report" id="report">
+                        <i class='bx bx-cloud-download'></i>
+                        <span>Download CSV</span>
+                    </a>
+                </div>
+                <div class="bottom-data">
+                    <div class="orders leads-container">
+                        <div class="header header-leads">
+                            <div>
+                                <h3>Recent Leads</h3>
+                            </div>
+                            <div class="bxplus {{hidden}}">
+                                <i class='bx bx-plus' id="add-lead"></i>
+                            </div>
+                        </div>
+                        <table>
+                            <tbody>
+                                {% for lead in leads %}
+                                <tr>
+                                    <td>
+                                        <p class="leads-first-name">{{ lead.Name|slice:":2"|upper }}</p>
+
+                                        <div class="leads-name">
+                                            <p>{{ lead.Name }}</p>
+                                            <p class="dateonly">{{ lead.Created_date}}</p>
+                                        </div>
+                                        <a href="{% url 'lead_detail' lead.id %}"><span class="status Completed details">Show</span></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="orders" id="last-lead-container">
+                        <div class="header header-leads">
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <i class='bx bx-receipt'></i>
+                                <h3 style="margin-left: 20px;">{{leadheding}}</h3>
+                                
+                            </div>
+                        </div>
+                        <div class="impormation-container" style="justify-content: flex-start;">
+                            <div class="impormation">
+                                <i class='bx bx-user' ></i><p>
+                                    {{ last_lead.Name }}
+                                    {{leaddtails.Name}}
+                                
+                            </div>
+                            <div class="impormation">
+                                <i class='bx bx-phone-call'></i><p>
+                                    {{ last_lead.Mobile_Number}}
+                                    {{ leaddtails.Mobile_Number}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="impormation-container">
+                            <div class="impormation">
+                                <i class='bx bx-location-plus' ></i><p>
+                                    {{ last_lead.Location}}
+                                    {{ leaddtails.Location}}
+
+                                </p>
+                            </div>
+                            <div class="impormation">
+                                <i class='bx bxs-business' ></i><p>
+                                    {{ last_lead.Business_Name}}
+                                    {{ leaddtails.Business_Name}}
+
+                                </p>
+                            </div>
+                            <div class="impormation">
+                                <i class='bx bxs-business' ></i><p>
+                                    {{ last_lead.Business_Type }}
+                                    {{ leaddtails.Business_Type }}
+
+                                </p>
+                            </div>
+                        </div>
+                        <div class="impormation-container">
+                            <div class="impormation">
+                            <i class='bx bx-phone-call'></i><p>
+                                {{  last_lead.Source }}
+                                {{  leaddtails.Source }}
+
+                            </p>
+                            </div>
+                            <div class="impormation">
+                                <i class='bx bx-location-plus' ></i><p>
+                                    {{ last_lead.Status }}
+                                    {{ leaddtails.Status }}
+
+                                </p>
+                            </div>
+                            <div class="impormation">
+                                <i class='bx bxs-business' ></i><p>
+                                    {{ last_lead.Budget }}
+                                    {{ leaddtails.Budget }}
+
+                                </p>
+                            </div>
+                        </div>
+                        <div class="impormation-container">
+                            <div class="impormation">
+                                <i class='bx bx-phone-call'></i><p class="services">
+                                    {{ last_lead.Priority }}
+                                    {{ leaddtails.Priority }}
+
+                                </p>
+                            </div>
+                            <div class="impormation">
+                                <i class='bx bxs-business' ></i><p>
+                                    {{last_lead.Follow_up_date}}
+                                    {{leaddtails.Follow_up_date}}
+
+                                </p>
+                            </div>
+                            <div class="impormation">
+                                <i class='bx bx-location-plus' ></i><p>
+                                    {{last_lead.Email}}
+                                    {{leaddtails.Email}}
+
+                                </p>
+                            </div>
+                        </div>
+                        <div class="impormation-container">
+                            <div class="remark">
+                                <i class='bx bxs-business' ></i><p>
+                                    {{last_lead.Services}}
+                                    {{leaddtails.Services}}
+                                
+                            </div>
+                        </div>
+                        <div class="impormation-container">
+                            <div class="remark">
+                                <i class='bx bxs-business' ></i>
+                                <p>
+                                    {{last_lead.Remark}}
+                                    {{leaddtails.Remark}}
+
+                                </p>
+                            </div>
+                            <div class="impormation">
+                                <a href="#" class="report" id="report">
+                                    <i class='bx bx-edit-alt'></i>
+                                    <span>Edit</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- <div class="orderss">
+                        <div class="header header-leads">
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <i class='bx bx-history'></i>
+                                <h3>History</h3>
+                            </div>
+                        </div>
+                        <div class="history">
+                            <div class="history-of-client">
+                                <div class="bxplu">
+                                    <i class='bx bx-user'></i>
+                                </div>
+                                <div class="leads-name">
+                                    <p>Client as of : <span class="date-time">06/21 - 12:07 PM</span></p>
+                                    <span><i class='bx bx-headphone'></i><span>Hannah Wells</span></span>
+                                </div>
+                            </div>
+                            <div class="history-of-client">
+                                <div class="bxplu">
+                                    <i class='bx bx-support'></i>
+                                </div>
+                                <div class="leads-name">
+                                    <p>Client as of : <span class="date-time">06/21 - 12:07 PM</span></p>
+                                    <span><i class='bx bx-headphone'></i><span>Hannah Wells</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    
+                    <div class="orders container-hidden" id="leads-big-container">
+                        <div class="header header-leads">
+                            <div class="leads-edit-name">
+                                <i class='bx bx-user' style="margin-right: 1rem;"></i>
+                                <h3>New Lead</h3>
+                            </div>
+                        </div>
+                        <form action="newleads" method="POST">
+                            {% csrf_token %}
+                            <div class="edit-details">
+                                <div class="form-input">
+                                    <label for="name">Name</label>
+                                    <input type="text" id="name" name="Name">
+                                </div>
+                                <div class="form-input">
+                                    <label for="number">Mobile Number</label>
+                                    <input type="text" id="number" name="Contact_Number">
+                                </div>
+                                <div class="form-input">
+                                    <label for="b-name">Business Name</label>
+                                    <input type="text" id="b-name" name="Business_name">
+                                </div>
+                            </div>
+                            <div class="edit-details">
+                                <div class="form-input">
+                                    <label for="b-type">Business Type</label>
+                                    <input type="text" id="b-type" name="Bussiness_types">
+                                </div>
+                                <div class="form-input">
+                                    <label for="location">Location</label>
+                                    <input type="text" id="location" name="Location">
+                                </div>
+                                <div class="form-input">
+                                    <label for="Budget">Budget</label>
+                                    <input type="text" id="Budget" name="Budget">
+                                </div>
+                            </div>
+                            <div class="edit-details">
+                                <div class="form-input">
+                                    <label for="fudate">Follow Up Date</label>
+                                    <input type="date" id="fudate" name="Followupdate">
+                                </div>
+                                <div class="form-input">
+                                    <label for="cars">Priority</label>
+
+                                    <select name="Priority" id="cars">
+                                    <option value="High">High</option>
+                                    <option value="Mediom">Mediom</option>
+                                    <option value="Low">Low</option>
+                                    </select>
+                                </div>
+                                <div class="form-input">
+                                    <label for="cars">Status</label>
+
+                                    <select name="Status" id="cars">
+                                    <option value="Processing">Processing</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Completed">Completed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="edit-details">
+                                <div class="form-input">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="Email_id">
+                                </div>
+                                
+                                <div class="form-input">
+                                    <label for="cars">Source</label>
+
+                                    <select id="cars" name="Source">
+                                        <option>Social Media</option>
+                                        <option>Walk In</option>
+                                        <option>Reference</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="edit-detail">
+                                <div class="form-input">
+                                    <label for="Name">Services</label>
+                                    <div style="margin-top: 20px;">
+                                        <input type="checkbox" id="value1" name="service" value="Website Development">
+                                        <label class="label" for="value1">Website Development</label><br>
+                                        <input type="checkbox" id="value2" name="service" value="CRM">
+                                        <label class="label" for="value2">CRM</label><br>
+                                        <input type="checkbox" id="value3" name="service" value="Social Media Management">
+                                        <label class="label" for="value3">Social Media Management</label><br>
+                                        <input type="checkbox" id="value4" name="service" value="Branding">
+                                        <label class="label" for="value4">Branding</label><br>
+                                        <input type="checkbox" id="value5" name="service" value="Digital Marketing">
+                                        <label class="label" for="value5">Digital Marketing</label><br>
+                                        <input type="checkbox" id="value6" name="service" value="Yet to Confirm">
+                                        <label class="label" for="value6">Yet to Confirm</label><br>
+                                    </div>
+                                </div>                                
+                                <div class="form-input">
+                                    <label for="Name">Remark</label>
+                                    <textarea name="Source_Remarks" id="" cols="30" rows="7"></textarea>
+                                </div>
+                                <div class="form-input">
+                                    <input type="submit" value="Submit">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %}
+

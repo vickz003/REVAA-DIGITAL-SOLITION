@@ -1,0 +1,263 @@
+{% extends 'main.html' %}
+
+{% block title %}
+    Dashboard | Revaa Degital Solition
+{% endblock %}
+
+{% block content %}
+    {% include 'inc/sidebar.html' %}
+    <div class="content">
+        {% include 'inc/navbar.html' %}
+        {% include 'inc/messages.html' %}
+
+        <main>
+            <div class="header">
+                <div class="left">
+                    <h1>Dashboard</h1>
+                    <!-- <ul class="breadcrumb">
+                        <li><a href="#">
+                                Analytics
+                            </a></li>
+                        /
+                        <li><a href="#" class="active">Shop</a></li>
+                    </ul> -->
+                </div>
+                <!-- <a href="#" class="report">
+                    <i class='bx bx-cloud-download'></i>
+                    <span>Download CSV</span>
+                </a> -->
+            </div>
+
+            <ul class="insights">
+                <li>
+                    <i class='bx bx-calendar-check'></i>
+                    <span class="info">
+                        <h3>
+                            {{overall}}
+                        </h3>
+                        <p>Overall</p>
+                    </span>
+                </li>
+                <li><i class='bx bx-show-alt'></i>
+                    <span class="info">
+                        <h3>
+                            {{todayleads_completed}} / {{today_leads_count}}
+                        </h3>
+                        <p>Today</p>
+                    </span>
+                </li>
+                <li><i class='bx bx-line-chart'></i>
+                    <span class="info">
+                        <h3>
+                            {{Tomarrowleads_completed}} / {{Tomarrow_leads_count}}
+                        </h3>
+                        <p>Tomarrow</p>
+                    </span>
+                </li>
+                <li><i class='bx bx-dollar-circle'></i>
+                    <span class="info">
+                        <h3>
+                            {{overall_complited}} / {{overall}}
+                        </h3>
+                        <p>Complited</p>
+                    </span>
+                </li>
+            </ul>
+
+            <div class="bottom-data">
+                <div class="orders today-lead-container">
+                    <div class="header">
+                        <i class='bx bx-receipt'></i>
+                        <h3>Today Leads</h3>
+                        <!-- <i class='bx bx-filter'></i>
+                        <i class='bx bx-search'></i> -->
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <!-- <th>Order Date</th> -->
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for lead in today_leads %}
+                            <tr>
+                                <td>
+                                    <p class="leads-first-name">{{ lead.Name|slice:":2"|upper }}</p>
+                                    <p>{{lead.Name}}</p>
+                                </td>
+                                <td><a href="{% url 'today_lead_detail' lead.id %}"><span class="status {{lead.Status}}">{{lead.Status}}</span></a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="orders" id="last-lead-container">
+                    <div class="header header-leads">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <i class='bx bx-receipt'></i>
+                            <h3 style="margin-left: 20px;">{{first_lead.Name}}</h3>
+                            
+                        </div>
+                    </div>
+                    <div class="impormation-container" style="justify-content: flex-start;">
+                        <div class="impormation">
+                            <i class='bx bx-user' ></i><p>
+                                {{ first_lead.Name }}
+                                {{leaddtails.Name}}
+                            
+                        </div>
+                        <div class="impormation">
+                            <i class='bx bx-phone-call'></i><p>
+                                {{ first_lead.Mobile_Number}}
+                                {{ leaddtails.Mobile_Number}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="impormation-container">
+                        <div class="impormation">
+                            <i class='bx bx-location-plus' ></i><p>
+                                {{ first_lead.Location}}
+                                {{ leaddtails.Location}}
+
+                            </p>
+                        </div>
+                        <div class="impormation">
+                            <i class='bx bxs-business' ></i><p>
+                                {{ first_lead.Business_Name}}
+                                {{ leaddtails.Business_Name}}
+
+                            </p>
+                        </div>
+                        <div class="impormation">
+                            <i class='bx bxs-business' ></i><p>
+                                {{ first_lead.Business_Type }}
+                                {{ leaddtails.Business_Type }}
+
+                            </p>
+                        </div>
+                    </div>
+                    <div class="impormation-container">
+                        <div class="impormation">
+                        <i class='bx bx-phone-call'></i><p>
+                            {{  first_lead.Source }}
+                            {{  leaddtails.Source }}
+
+                        </p>
+                        </div>
+                        <div class="impormation">
+                            <i class='bx bx-location-plus' ></i><p>
+                                {{ first_lead.Status }}
+                                {{ leaddtails.Status }}
+
+                            </p>
+                        </div>
+                        <div class="impormation">
+                            <i class='bx bxs-business' ></i><p>
+                                {{ first_lead.Budget }}
+                                {{ leaddtails.Budget }}
+
+                            </p>
+                        </div>
+                    </div>
+                    <div class="impormation-container">
+                        <div class="impormation">
+                            <i class='bx bx-phone-call'></i><p class="services">
+                                {{ first_lead.Priority }}
+                                {{ leaddtails.Priority }}
+
+                            </p>
+                        </div>
+                        <div class="impormation">
+                            <i class='bx bxs-business' ></i><p>
+                                {{first_lead.Follow_up_date}}
+                                {{leaddtails.Follow_up_date}}
+
+                            </p>
+                        </div>
+                        <div class="impormation">
+                            <i class='bx bx-location-plus' ></i><p>
+                                {{first_lead.Email}}
+                                {{leaddtails.Email}}
+
+                            </p>
+                        </div>
+                    </div>
+                    <div class="impormation-container">
+                        <div class="remark">
+                            <i class='bx bxs-business' ></i><p>
+                                {{first_lead.Services}}
+                                {{leaddtails.Services}}
+                            
+                        </div>
+                    </div>
+                    <div class="impormation-container">
+                        <div class="remark">
+                            <i class='bx bxs-business' ></i>
+                            <p>
+                                {{first_lead.Remark}}
+                                {{leaddtails.Remark}}
+
+                            </p>
+                        </div>
+                        <div class="impormation">
+                            <a href="#" class="report" id="report" style="
+                                        height: 36px;
+                                        padding: 0 16px;
+                                        border-radius: 10px;
+                                        background: var(--primary);
+                                        color: var(--light);
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        grid-gap: 10px;
+                                        font-weight: 500;
+                                ">
+                                <i class='bx bx-edit-alt'></i>
+                                <span>Edit</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="reminders">
+                    <div class="header">
+                        <i class='bx bx-note'></i>
+                        <h3>Remiders</h3>
+                        <i class='bx bx-filter'></i>
+                        <i class='bx bx-plus'></i>
+                    </div>
+                    <ul class="task-list">
+                        <li class="completed">
+                            <div class="task-title">
+                                <i class='bx bx-check-circle'></i>
+                                <p>Start Our Meeting</p>
+                            </div>
+                            <i class='bx bx-dots-vertical-rounded'></i>
+                        </li>
+                        <li class="completed">
+                            <div class="task-title">
+                                <i class='bx bx-check-circle'></i>
+                                <p>Analyse Our Site</p>
+                            </div>
+                            <i class='bx bx-dots-vertical-rounded'></i>
+                        </li>
+                        <li class="not-completed">
+                            <div class="task-title">
+                                <i class='bx bx-x-circle'></i>
+                                <p>Play Footbal</p>
+                            </div>
+                            <i class='bx bx-dots-vertical-rounded'></i>
+                        </li>
+                    </ul>
+                </div> -->
+
+
+            </div>
+
+        </main>
+
+    </div>
+{% endblock %}
+
