@@ -63,6 +63,111 @@
                     </span>
                 </li>
             </ul>
+            {% if lead %}
+                <div class="orders" id="last-lead-container">
+                    <div class="header header-leads">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <i class='bx bx-receipt'></i>
+                            <h3 style="margin-left: 20px;">{{lead.Name}}</h3>
+                            
+                        </div>
+                    </div>
+                    <div class="impormation-container" style="justify-content: flex-start;">
+                        <div class="impormation">
+                            <i class='bx bx-user' ></i><p>
+                                {{lead.Name}}
+                            
+                        </div>
+                        <div class="impormation">
+                            <i class='bx bx-phone-call'></i><p>
+                                {{ lead.Mobile_Number}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="impormation-container">
+                        <div class="impormation">
+                            <i class='bx bx-location-plus' ></i><p>
+                                {{ lead.Location}}
+
+                            </p>
+                        </div>
+                        <div class="impormation">
+                            <i class='bx bxs-business' ></i><p>
+                                {{ lead.Business_Name}}
+
+                            </p>
+                        </div>
+                        <div class="impormation">
+                            <i class='bx bxs-business' ></i><p>
+                                {{ lead.Business_Type }}
+
+                            </p>
+                        </div>
+                    </div>
+                    <div class="impormation-container">
+                        <div class="impormation">
+                        <i class='bx bx-phone-call'></i><p>
+                            {{  lead.Source }}
+
+                        </p>
+                        </div>
+                        <div class="impormation">
+                            <i class='bx bx-location-plus' ></i><p>
+                                {{ lead.Status }}
+
+                            </p>
+                        </div>
+                        <div class="impormation">
+                            <i class='bx bxs-business' ></i><p>
+                                {{ lead.Budget }}
+
+                            </p>
+                        </div>
+                    </div>
+                    <div class="impormation-container">
+                        <div class="impormation">
+                            <i class='bx bx-phone-call'></i><p class="services">
+                                {{ lead.Priority }}
+
+                            </p>
+                        </div>
+                        <div class="impormation">
+                            <i class='bx bxs-business' ></i><p>
+                                {{lead.Follow_up_date}}
+
+                            </p>
+                        </div>
+                        <div class="impormation">
+                            <i class='bx bx-location-plus' ></i><p>
+                                {{lead.Email}}
+
+                            </p>
+                        </div>
+                    </div>
+                    <div class="impormation-container">
+                        <div class="remark">
+                            <i class='bx bxs-business' ></i><p>
+                                {{lead.Services}}
+                            
+                        </div>
+                    </div>
+                    <div class="impormation-container">
+                        <div class="remark">
+                            <i class='bx bxs-business' ></i>
+                            <p>
+                                {{lead.Remark}}
+
+                            </p>
+                        </div>
+                        <div class="impormation">
+                            <a href="edit" class="report" id="edit">
+                                <i class='bx bx-edit-alt'></i>
+                                <span>Edit</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
 
             <div class="bottom-data">
                 <div class="orders today-lead-container">
@@ -76,8 +181,11 @@
                         <thead>
                             <tr>
                                 <th>User</th>
-                                <!-- <th>Order Date</th> -->
+                                <th>Order Date</th>
+                                <th>Order Date</th>
+                                <th>Complany Name</th>
                                 <th>Status</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -87,139 +195,23 @@
                                     <p class="leads-first-name">{{ lead.Name|slice:":2"|upper }}</p>
                                     <p>{{lead.Name}}</p>
                                 </td>
-                                <td><a href="{% url 'today_lead_detail' lead.id %}"><span class="status {{lead.Status}}">{{lead.Status}}</span></a></td>
+                                <td>
+                                    <p>{{lead.Follow_up_date}}</p>
+                                </td>
+                                <td>
+                                    <p>{{lead.Created_date}}</p>
+                                </td>
+                                <td>
+                                    <p>{{lead.Business_Name}}</p>
+                                </td>
+                                <td><a href="{% url 'editlead' lead_id=lead.id %}"><span class="status {{lead.Status}}">{{lead.Status}}</span></a></td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
-                <div class="orders" id="last-lead-container">
-                    <div class="header header-leads">
-                        <div style="display: flex; align-items: center; justify-content: space-between;">
-                            <i class='bx bx-receipt'></i>
-                            <h3 style="margin-left: 20px;">{{first_lead.Name}}</h3>
-                            
-                        </div>
-                    </div>
-                    <div class="impormation-container" style="justify-content: flex-start;">
-                        <div class="impormation">
-                            <i class='bx bx-user' ></i><p>
-                                {{ first_lead.Name }}
-                                {{leaddtails.Name}}
-                            
-                        </div>
-                        <div class="impormation">
-                            <i class='bx bx-phone-call'></i><p>
-                                {{ first_lead.Mobile_Number}}
-                                {{ leaddtails.Mobile_Number}}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="impormation-container">
-                        <div class="impormation">
-                            <i class='bx bx-location-plus' ></i><p>
-                                {{ first_lead.Location}}
-                                {{ leaddtails.Location}}
 
-                            </p>
-                        </div>
-                        <div class="impormation">
-                            <i class='bx bxs-business' ></i><p>
-                                {{ first_lead.Business_Name}}
-                                {{ leaddtails.Business_Name}}
-
-                            </p>
-                        </div>
-                        <div class="impormation">
-                            <i class='bx bxs-business' ></i><p>
-                                {{ first_lead.Business_Type }}
-                                {{ leaddtails.Business_Type }}
-
-                            </p>
-                        </div>
-                    </div>
-                    <div class="impormation-container">
-                        <div class="impormation">
-                        <i class='bx bx-phone-call'></i><p>
-                            {{  first_lead.Source }}
-                            {{  leaddtails.Source }}
-
-                        </p>
-                        </div>
-                        <div class="impormation">
-                            <i class='bx bx-location-plus' ></i><p>
-                                {{ first_lead.Status }}
-                                {{ leaddtails.Status }}
-
-                            </p>
-                        </div>
-                        <div class="impormation">
-                            <i class='bx bxs-business' ></i><p>
-                                {{ first_lead.Budget }}
-                                {{ leaddtails.Budget }}
-
-                            </p>
-                        </div>
-                    </div>
-                    <div class="impormation-container">
-                        <div class="impormation">
-                            <i class='bx bx-phone-call'></i><p class="services">
-                                {{ first_lead.Priority }}
-                                {{ leaddtails.Priority }}
-
-                            </p>
-                        </div>
-                        <div class="impormation">
-                            <i class='bx bxs-business' ></i><p>
-                                {{first_lead.Follow_up_date}}
-                                {{leaddtails.Follow_up_date}}
-
-                            </p>
-                        </div>
-                        <div class="impormation">
-                            <i class='bx bx-location-plus' ></i><p>
-                                {{first_lead.Email}}
-                                {{leaddtails.Email}}
-
-                            </p>
-                        </div>
-                    </div>
-                    <div class="impormation-container">
-                        <div class="remark">
-                            <i class='bx bxs-business' ></i><p>
-                                {{first_lead.Services}}
-                                {{leaddtails.Services}}
-                            
-                        </div>
-                    </div>
-                    <div class="impormation-container">
-                        <div class="remark">
-                            <i class='bx bxs-business' ></i>
-                            <p>
-                                {{first_lead.Remark}}
-                                {{leaddtails.Remark}}
-
-                            </p>
-                        </div>
-                        <div class="impormation">
-                            <a href="#" class="report" id="report" style="
-                                        height: 36px;
-                                        padding: 0 16px;
-                                        border-radius: 10px;
-                                        background: var(--primary);
-                                        color: var(--light);
-                                        display: flex;
-                                        align-items: center;
-                                        justify-content: center;
-                                        grid-gap: 10px;
-                                        font-weight: 500;
-                                ">
-                                <i class='bx bx-edit-alt'></i>
-                                <span>Edit</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                
 
                 <!-- <div class="reminders">
                     <div class="header">

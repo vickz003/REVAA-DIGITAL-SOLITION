@@ -349,6 +349,14 @@ body{
     color: var(--primary);
     pointer-events: none;
 }
+.content main .header .report input{
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+/* .content main .header .report input::placeholder{
+    color: red;
+} */
 
 .content main .header .report, .impormation a{
     height: 36px;
@@ -672,11 +680,9 @@ body{
     flex-wrap: nowrap;
     margin-bottom: 50px;
 }
-.history .leads-name{
-    margin-left: 15px;
-}
-.history .leads-name p{
-    font-size: small;
+.leads-name{
+    width: 7rem;
+    overflow-x: hidden;
 }
 .bxplu i{
     background-color: var(--grey);
@@ -741,9 +747,9 @@ body{
 }
 
 .container-hidden{
-    transition: all 0.3s ease;
-    display: none;
+    display: none !important;
 }
+
 .disabled{
     background-color: transparent !important; 
     outline: none !important; 

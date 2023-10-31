@@ -58,9 +58,26 @@ toggler.addEventListener('change', function () {
 
 
 const addLead = document.getElementById('add-lead');
-const lastlead = document.getElementById('last-lead-container');
-const addleadcontainer = document.getElementById('leads-big-container');
-const container = document.getElementsByClassName('leads-container');
+const lastLead = document.getElementById('last-lead-container');
+const reportData = document.getElementById('report');
+const importData = document.getElementById('import');
+const addLeadContainer = document.getElementById('leads-big-container');
+const containers = document.querySelectorAll('.leads-container'); // Use querySelectorAll to get all elements with the class
+
+addLead.addEventListener('click', () => {
+    lastLead.classList.toggle('container-hidden');
+    importData.classList.toggle('container-hidden');
+    reportData.classList.toggle('container-hidden');
+    addLeadContainer.classList.toggle('container-hidden');
+    
+    containers.forEach(container => {
+        container.classList.toggle('container-hidden');
+    });
+});
+
+
+const editbtn = document.getElementById('edit');
+const editcontainer = document.getElementById('add-lead');
 
 addLead.addEventListener('click', () => {
     lastlead.classList.toggle('container-hidden');
@@ -70,4 +87,3 @@ addLead.addEventListener('click', () => {
     }
     addleadcontainer.classList.toggle('container-hidden');
 });
-

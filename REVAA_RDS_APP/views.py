@@ -8,7 +8,6 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 import openpyxl
 from openpyxl.styles import Font, PatternFill
- 
 # Create your views here.
 
 def index(request):
@@ -46,8 +45,9 @@ def leads(request):
     All_leads = Leads.objects.all()[::-1]
     last_lead = Leads.objects.last()
     leadheding = "Last Lead"
+    container_hidden = 'container-hidden'
 
-    return render(request, 'leads.html',{'leads':All_leads,'last_lead':last_lead,'leadheding':leadheding,'Leads':Leadss})
+    return render(request, 'leads.html',{'leads':All_leads,'last_lead':last_lead,'leadheding':leadheding,'Leads':Leadss,'container_hidden':container_hidden})
 
 def calls(request):
     return render(request, 'calls.html')
@@ -58,9 +58,10 @@ def lead_detail(request, lead_id):
     leaddtails = Leads.objects.get(id = lead_id)
     leadheding = "Lead Details"
     hidden = "container-hidden"
+    container_hidden = "container-hidden"
 
     lead = get_object_or_404(Leads, pk=lead_id)
-    context = {'lead': lead,'leads':All_leads,'leaddtails':leaddtails,'leadheding':leadheding,'hidden':hidden,'Leads':Leadss}
+    context = {'lead': lead,'leads':All_leads,'leaddtails':leaddtails,'leadheding':leadheding,'hidden':hidden,'Leads':Leadss,'container_hidden':container_hidden}
     return render(request, 'leads.html', context)
 
 def newleads(request):
@@ -130,4 +131,44 @@ def exportdata(request):
 
     return response
 
+def editlead(request, lead_id):
+    container_hidden = 'container-hidden'
+    lead = Leads.objects.get(id=lead_id)
+    return render(request, 'leads.html', {'lead':lead})
+
+def updatedata(request, lead_id):
+    mydata = Leads.objects.get(id=lead_id)
+    if request.method == 'POST':
+        name = request.POST["Name"]
+        phone = request.POST["Contact_Number"]
+        email = request.POST["Email_id"]
+        location = request.POST["Location"]
+        business_name = request.POST["Business_name"]
+        budget = request.POST["Budget"]
+        source = request.POST["Source"]
+        services = request.POST.getlist('service')
+        Source_Remarks = request.POST.get("Source_Remarks", "")
+        status = request.POST["Status"]
+        business_type = request.POST["Bussiness_types"]
+        priority = request.POST["Priority"]
+        followup_date = request.POST["Followupdate"]
+
+        mydata.Name = name
+        mydata.Mobile_Number = phone
+        mydata.Email = email
+        mydata.Location = location
+        mydata.Business_Name = business_name
+        mydata.Budget = budget
+        mydata.Source = source
+        mydata.Services = services
+        mydata.Status = status
+        mydata.Business_Type = business_type
+        mydata.Priority = priority
+        mydata.Follow_up_date = followup_date
+        mydata.Remark = Source_Remarks
+        mydata.save()
+        messages.success(request, 'Lead successfully updated...')
+        return redirect("index")
+    
+    return redirect('index')
 
