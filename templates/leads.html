@@ -8,6 +8,7 @@
     {% include 'inc/sidebar.html' %}
     <div class="content">
         {% include 'inc/navbar.html' %}
+
         <main>
             <div class="header">
                 <div class="left lead-and-csv">
@@ -16,22 +17,16 @@
                         <i class='bx bx-cloud-download'></i>
                         <span>Download CSV</span>
                     </a>
-                    <a class="report container-hidden" id="import">
-                        <form action="">
-                            <i class='bx bx-cloud-download'></i>
-                            <input type="file">
-                        </form>
-                    </a>
                 </div>
                 <div class="bottom-data">
                     {% if leads %}
-                    <div class="orders leads-container">
+                    <div class="orders leads-container" id="leads-container">
                         <div class="header header-leads">
                             <div>
                                 <h3>Recent Leads</h3>
                             </div>
-                            <div class="bxplus {{hidden}}">
-                                <i class='bx bx-plus' id="add-lead"></i>
+                            <div class="bxplus dropdownmenu {{hidden}}" id="bxplus">
+                                <i class='bx bx-plus' ></i>
                             </div>
                         </div>
                         <table>
@@ -53,7 +48,7 @@
                         </table>
                     </div>
 
-                    <div class="orders" id="last-lead-container">
+                    <div class="orders" id="view-leads">
                         <div class="header header-leads">
                             <div style="display: flex; align-items: center; justify-content: space-between;">
                                 <i class='bx bx-receipt'></i>
@@ -91,7 +86,7 @@
                                 </p>
                             </div>
                             <div class="impormation">
-                                <i class='bx bxs-business' ></i><p>
+                                <i class='bx bxl-product-hunt'></i><p>
                                     {{ last_lead.Business_Type }}
                                     {{ leaddtails.Business_Type }}
 
@@ -100,21 +95,21 @@
                         </div>
                         <div class="impormation-container">
                             <div class="impormation">
-                            <i class='bx bx-phone-call'></i><p>
+                                <i class='bx bx-git-branch'></i><p>
                                 {{  last_lead.Source }}
                                 {{  leaddtails.Source }}
 
                             </p>
                             </div>
                             <div class="impormation">
-                                <i class='bx bx-location-plus' ></i><p>
+                                <i class='bx bx-stats'></i><p>
                                     {{ last_lead.Status }}
                                     {{ leaddtails.Status }}
 
                                 </p>
                             </div>
                             <div class="impormation">
-                                <i class='bx bxs-business' ></i><p>
+                                <i class='bx bx-rupee'></i><p>
                                     {{ last_lead.Budget }}
                                     {{ leaddtails.Budget }}
 
@@ -123,21 +118,21 @@
                         </div>
                         <div class="impormation-container">
                             <div class="impormation">
-                                <i class='bx bx-phone-call'></i><p class="services">
+                                <i class='bx bx-highlight'></i><p class="services">
                                     {{ last_lead.Priority }}
                                     {{ leaddtails.Priority }}
 
                                 </p>
                             </div>
                             <div class="impormation">
-                                <i class='bx bxs-business' ></i><p>
+                                <i class='bx bx-calendar-check' ></i><p>
                                     {{last_lead.Follow_up_date}}
                                     {{leaddtails.Follow_up_date}}
 
                                 </p>
                             </div>
                             <div class="impormation">
-                                <i class='bx bx-location-plus' ></i><p>
+                                <i class='bx bx-envelope' ></i><p>
                                     {{last_lead.Email}}
                                     {{leaddtails.Email}}
 
@@ -146,15 +141,14 @@
                         </div>
                         <div class="impormation-container">
                             <div class="remark">
-                                <i class='bx bxs-business' ></i><p>
+                                <i class='bx bxl-product-hunt' ></i><p>
                                     {{last_lead.Services}}
                                     {{leaddtails.Services}}
-                                
                             </div>
                         </div>
                         <div class="impormation-container">
                             <div class="remark">
-                                <i class='bx bxs-business' ></i>
+                                <i class='bx bx-note' ></i>
                                 <p>
                                     {{last_lead.Remark}}
                                     {{leaddtails.Remark}}
@@ -277,6 +271,21 @@
                             </div>
                         </form>
                     </div>
+                    <label for="images" class="drop-container container-hidden" id="dropcontainer">
+                        <span class="drop-title">Drop files here</span>
+                        <br><br>
+                        <form action="leads/importdata" method="post" enctype="multipart/form-data">
+                            {% csrf_token %} 
+                                <input type="file" class="form-control p-1" name="ecxelfile" >
+                            
+                                <input type="submit" class="btn btn-outline-primary w-100" value="Import">
+                            
+                        </form>
+                        
+                        
+                    </label>
+
+                    
 
 
                     <!-- -------------------------- -->

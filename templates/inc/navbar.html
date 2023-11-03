@@ -9,10 +9,67 @@
     </form>
     <input type="checkbox" id="theme-toggle" hidden>
     <label for="theme-toggle" class="theme-toggle"></label>
-    <a href="#" class="notif">
-        <i class='bx bx-bell'></i>
-        <span class="count">12</span>
-    </a>
+    <div>
+        <a href="#" class="notif" id="notification">
+            <i class='bx bx-bell'></i>
+            <span class="count">12</span>
+            <div class="notification" id="notification-container">
+                <h3>Tickets</h3>
+                <table class="tickets" style="margin-bottom: 10px;">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p class="leads-first-name">VR</p>
+                                <div class="leads-name">
+                                    <p>Vikram</p>
+                                    <p style="font-size: small; color: brown;">Replace</p>
+                                    <p class="dateonly"></p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="leads-first-name">VR</p>
+                                <div class="leads-name">
+                                    <p>Vikram</p>
+                                    <p style="font-size: small; color: brown;">Replace</p>
+                                    <p class="dateonly"></p>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- <tr class="notification-btns"><td>Show</td><td>Clear</td></tr> -->
+                    </tbody>
+                </table>
+                <h3>Mails</h3>
+                <table class="tickets" style="margin-bottom: 10px;">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p class="leads-first-name">VR</p>
+                                <div class="leads-name">
+                                    <p>Vikram</p>
+                                    <p style="font-size: small;">vigram@gmail.com</p>
+                                    <p class="dateonly"></p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="leads-first-name">VR</p>
+                                <div class="leads-name">
+                                    <p>Vikram</p>
+                                    <p style="font-size: small;">vigram@gmail.com</p>
+                                    <p class="dateonly"></p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="notification-btns"><td>Show</td><td>Clear</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </a>
+    </div>
     <a href="#" class="profile">
         <img src="{% static 'images/fav-icon.png' %}">
     </a>

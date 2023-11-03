@@ -8,6 +8,8 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 import openpyxl
 from openpyxl.styles import Font, PatternFill
+import pandas as pd 
+from REVAA_RDS_APP.models import Leads 
 # Create your views here.
 
 def index(request):
@@ -16,10 +18,7 @@ def index(request):
     tomorrow = today + timedelta(days=1)
     today_leads = Leads.objects.filter(Follow_up_date__range=(today, tomorrow))
     overall = len(today_leads)
-    if today_leads.exists():
-        first_lead = today_leads.first()
-    else:
-        pass
+    
 
     # today details
     todayleads = Leads.objects.filter(Follow_up_date__range=(today, today))
@@ -38,7 +37,7 @@ def index(request):
     return render(request, 'index.html',
                   {'today_leads':today_leads,'overall':overall,'today_leads_count':today_leads_count,'todayleads_completed':todayleads_completed,
                  'Tomarrow_leads_count':Tomarrow_leads_count,'Tomarrowleads_completed':Tomarrowleads_completed,'overall_complited':overall_complited,
-                 'Dashboard':Dashboard,'first_lead':first_lead})
+                 'Dashboard':Dashboard})
 
 def leads(request):
     Leadss = "active"
@@ -172,3 +171,28 @@ def updatedata(request, lead_id):
     
     return redirect('index')
 
+def import_data(request):
+    excel_file = request.FILES.get("ecxelfile")
+    if excel_file:
+        print("yes")
+        data = pd.read_excel(excel_file)
+
+        for index, row in data.iterrows():
+            Leads.objects.create(
+                Name = row['Name'], 
+                Mobile_Number=row['ContactNo'], 
+                Email=row['Mail Id'], 
+                Business_Name=row['Business Name'], 
+                Location=row['Location'], 
+                Budget=row['Budget'], 
+                Source=row['Source'],
+                Services=row['Product'],  
+                Status=row['Status'],
+                Business_Type = row["Business Type"], 
+                Priority = row['Priority'], 
+                Remark = row['Remarks'], 
+                Created_date = row['Date'], 
+                Follow_up_date=row['EDD'],  
+            )
+        return redirect("newleads")
+    return redirect("newleads")

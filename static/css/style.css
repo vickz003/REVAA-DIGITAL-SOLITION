@@ -761,18 +761,97 @@ body{
     background-color: var(--primary);
 }
 
+.drop-container {
+    position: relative;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px dashed #555;
+    color: var(--light);
+    cursor: pointer;
+    transition: background .2s ease-in-out, border .2s ease-in-out;
+    background-color: var(--light);
+    width: 100vw;
+}
+.drop-container input{
+    background-color: var(--light);
+}
+.drop-container form .upload{
+    background-color: var(--primary);
+}
+.drop-container:hover {
+  background: var(--light);
+  border-color: var(--dark);
+}
+
+.drop-container:hover .drop-title {
+  color: var(--dark);
+}
+
+.drop-title {
+  color: var(--dark);
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  transition: color .2s ease-in-out;
+}  
 
 
+/* ----------------------------------------------- */
+/* ---------------NOTIFICATION-------------------- */
+/* ----------------------------------------------- */
 
-
-
-
-
-
-
-
-
-
+.content .notification{
+    background-color: var(--light);
+    position: absolute;
+    flex-grow: 1;
+    border-radius: 15px;
+    width: 280px;
+    padding: 20px;
+    color: var(--dark);
+    right: -400px;
+    z-index: 100000000;
+}
+.content  .show{
+    right: 0px;
+    top: 60px;
+}
+.content .notification h3{
+font-size: small;
+}
+.content .notification .tickets{
+    width: 100%;
+}
+.content .notification .tickets tbody tr td{
+    display: flex;
+    align-items: center;
+}
+.content .notification .tickets tbody tr td p{
+    margin: 5px;
+}
+.content .notification .tickets .notification-btns{
+    display: flex;
+    align-items: center;justify-content: end;
+    font-size: small;
+    margin-top: 5px;
+}
+.content .notification .tickets .notification-btns td{
+    background-color: var(--primary);
+    margin: 5px;
+    padding: 5px 15px;
+    border-radius: 30px;
+    color: var(--light);
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.content .notification .tickets .notification-btns td:last-child{
+    background-color: var(--danger);
+}
 
 
 
@@ -859,15 +938,15 @@ body{
     background-clip: content-box;
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--grey);
+    background: transparent;
     border-radius: 1rem;
     height: 10px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background-color: var(--dark);
+    background-color:transparent;
   }
   ::-webkit-scrollbar-thumb:active {
-    background-color: var(--dark);
+    background-color:transparent;
   }
   ::-webkit-scrollbar:horizontal{
     width: 10px;

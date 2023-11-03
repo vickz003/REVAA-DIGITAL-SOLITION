@@ -55,35 +55,24 @@ toggler.addEventListener('change', function () {
     }
 });
 
+const bxplus_btn = document.getElementById('bxplus');
+const leads_container = document.getElementById('leads-container');
+const view_leads = document.getElementById('view-leads');
+const report = document.getElementById('report');
+const newlead = document.getElementById('leads-big-container');
+const dropcontainer = document.getElementById('dropcontainer');
 
-
-const addLead = document.getElementById('add-lead');
-const lastLead = document.getElementById('last-lead-container');
-const reportData = document.getElementById('report');
-const importData = document.getElementById('import');
-const addLeadContainer = document.getElementById('leads-big-container');
-const containers = document.querySelectorAll('.leads-container'); // Use querySelectorAll to get all elements with the class
-
-addLead.addEventListener('click', () => {
-    lastLead.classList.toggle('container-hidden');
-    importData.classList.toggle('container-hidden');
-    reportData.classList.toggle('container-hidden');
-    addLeadContainer.classList.toggle('container-hidden');
-    
-    containers.forEach(container => {
-        container.classList.toggle('container-hidden');
-    });
+bxplus_btn.addEventListener('click',() =>{
+    leads_container.classList.toggle('container-hidden')
+    view_leads.classList.toggle('container-hidden')
+    report.classList.toggle('container-hidden')
+    newlead.classList.toggle('container-hidden')
+    dropcontainer.classList.toggle('container-hidden')
 });
 
+const notification = document.getElementById('notification');
+const notificationcontainer = document.getElementById('notification-container');
 
-const editbtn = document.getElementById('edit');
-const editcontainer = document.getElementById('add-lead');
-
-addLead.addEventListener('click', () => {
-    lastlead.classList.toggle('container-hidden');
-
-    for (let i = 0; i < container.length; i++) {
-        container[i].classList.toggle('container-hidden');
-    }
-    addleadcontainer.classList.toggle('container-hidden');
-});
+notification.addEventListener('click',()=>{
+    notificationcontainer.classList.toggle('show')
+})

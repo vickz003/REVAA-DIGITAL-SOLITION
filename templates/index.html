@@ -8,7 +8,7 @@
     {% include 'inc/sidebar.html' %}
     <div class="content">
         {% include 'inc/navbar.html' %}
-        {% include 'inc/messages.html' %}
+
 
         <main>
             <div class="header">
@@ -169,6 +169,7 @@
                 </div>
                 {% endif %}
 
+                {% if today_leads %}
             <div class="bottom-data">
                 <div class="orders today-lead-container">
                     <div class="header">
@@ -210,6 +211,7 @@
                         </tbody>
                     </table>
                 </div>
+                {% endif %}
 
                 
 
