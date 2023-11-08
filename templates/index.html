@@ -59,7 +59,7 @@
                         <h3>
                             {{overall_complited}} / {{overall}}
                         </h3>
-                        <p>Complited</p>
+                        <p>Completed</p>
                     </span>
                 </li>
             </ul>
@@ -205,7 +205,7 @@
                                 <td>
                                     <p>{{lead.Business_Name}}</p>
                                 </td>
-                                <td><a href="{% url 'editlead' lead_id=lead.id %}"><span class="status {{lead.Status}}">{{lead.Status}}</span></a></td>
+                                <td><a href="{% url 'editlead' lead_id=lead.id %}"><span class="status {{lead.Status}} {% if lead.Status == "Call back" %}Callback{% endif %} {% if lead.Status == "Follow Up" %}Followup{% endif %}">{{lead.Status}}</span></a></td>
                             </tr>
                             {% endfor %}
                         </tbody>

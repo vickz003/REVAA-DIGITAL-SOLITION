@@ -1,0 +1,49 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}
+    Dashboard | Revaa Degital Solition
+{% endblock %}
+
+{% block content %}
+    <div class="login-container">
+        <div class="inner-container">
+            <div class="login-cantant">
+                <img src="{% static 'images/Revaa-new-logo-01.png' %}" alt="" width="200px">
+                <h1>Welcome to the CRM portal,</h1> 
+                <p>exclusively designed for authorized staff members. At this secure platform, our dedicated team can efficiently manage contacts, appointments, tasks, and access valuable reports to enhance productivity and service excellence. Your role within our organization is crucial, and this CRM portal is here to support your efforts in achieving success.</p>
+            </div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <h1>Login</h1>
+                <!-- Email input -->
+                <div class="form-outline">
+                    <label class="form-label" for="form2Example1">Email address</label><br>
+                    <input name="username" type="text" id="form2Example1" class="form-control" autocomplete="off"/>
+                    <!-- <p>Error message</p> -->
+                </div>
+                <!-- Password input -->
+                <div class="form-outline">
+                    <label class="form-label" for="form2Example2">Password</label><br>
+                    <div class="eye-container">
+                        <input name="password" type="password" id="form2Example2" class="form-control" autocomplete="off"/>
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                        <!-- <p>Error message</p> -->
+                    </div>
+                </div>
+            
+                <!-- Submit button -->
+                <input type="submit" class="submit-btn" value="Sign in">
+            
+                <!-- 2 column grid layout for inline styling -->
+                <div class="forgotpassword">
+                    <div class="col">
+                      <!-- Simple link -->
+                      <a href="#!">Forgot password?</a>
+                    </div>
+                  </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+

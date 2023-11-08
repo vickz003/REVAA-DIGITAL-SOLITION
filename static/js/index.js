@@ -55,20 +55,23 @@ toggler.addEventListener('change', function () {
     }
 });
 
-const bxplus_btn = document.getElementById('bxplus');
-const leads_container = document.getElementById('leads-container');
-const view_leads = document.getElementById('view-leads');
-const report = document.getElementById('report');
-const newlead = document.getElementById('leads-big-container');
-const dropcontainer = document.getElementById('dropcontainer');
+document.addEventListener('DOMContentLoaded', function () {
+    const bxplus_btn = document.getElementById('bxplus');
+    const leads_container = document.getElementById('leads-container');
+    const view_leads = document.getElementById('view-leads');
+    const report = document.getElementById('report');
+    const newlead = document.getElementById('leads-big-container');
+    const dropcontainer = document.getElementById('dropcontainer');
 
-bxplus_btn.addEventListener('click',() =>{
-    leads_container.classList.toggle('container-hidden')
-    view_leads.classList.toggle('container-hidden')
-    report.classList.toggle('container-hidden')
-    newlead.classList.toggle('container-hidden')
-    dropcontainer.classList.toggle('container-hidden')
+    bxplus_btn.addEventListener('click', () => {
+        leads_container.classList.toggle('container-hidden');
+        view_leads.classList.toggle('container-hidden');
+        report.classList.toggle('container-hidden');
+        newlead.classList.toggle('container-hidden');
+        dropcontainer.classList.toggle('container-hidden');
+    });
 });
+
 
 const notification = document.getElementById('notification');
 const notificationcontainer = document.getElementById('notification-container');

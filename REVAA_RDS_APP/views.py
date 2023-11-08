@@ -9,8 +9,32 @@ from django.http import HttpResponse
 import openpyxl
 from openpyxl.styles import Font, PatternFill
 import pandas as pd 
-from REVAA_RDS_APP.models import Leads 
+from REVAA_RDS_APP.models import Leads
+from django.contrib.auth import authenticate, login, logout
+
+
 # Create your views here.
+
+
+
+
+def login_page(request):
+    if request.user.is_authenticated:
+        return redirect("index")
+    if request.method == 'POST':
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request,username=username, password=password)
+        if user is not None:
+            login(request,user)
+            messages.success(request,"Successfully login....")
+            return redirect("index")
+    return render(request,"login.html")
+
+def logout_page(request):
+    logout(request)
+    return redirect ("login")
+
 
 def index(request):
     Dashboard = "active"
@@ -46,7 +70,7 @@ def leads(request):
     leadheding = "Last Lead"
     container_hidden = 'container-hidden'
 
-    return render(request, 'leads.html',{'leads':All_leads,'last_lead':last_lead,'leadheding':leadheding,'Leads':Leadss,'container_hidden':container_hidden})
+    return render(request, 'leads.html',{'leads':All_leads,'last_lead':last_lead,'leadheding':leadheding,'Leadss':Leadss,'container_hidden':container_hidden})
 
 def calls(request):
     return render(request, 'calls.html')
@@ -60,7 +84,7 @@ def lead_detail(request, lead_id):
     container_hidden = "container-hidden"
 
     lead = get_object_or_404(Leads, pk=lead_id)
-    context = {'lead': lead,'leads':All_leads,'leaddtails':leaddtails,'leadheding':leadheding,'hidden':hidden,'Leads':Leadss,'container_hidden':container_hidden}
+    context = {'lead': lead,'leads':All_leads,'leaddtails':leaddtails,'leadheding':leadheding,'hidden':hidden,'Leadss':Leadss,'container_hidden':container_hidden}
     return render(request, 'leads.html', context)
 
 def newleads(request):
@@ -73,6 +97,7 @@ def newleads(request):
         budget = request.POST["Budget"]
         source = request.POST["Source"]
         services = request.POST.getlist('service')
+        services_text = ",   ".join(services)
         Source_Remarks = request.POST.get("Source_Remarks", "")
         status = request.POST["Status"]
         business_type = request.POST["Bussiness_types"]
@@ -87,7 +112,7 @@ def newleads(request):
             Business_Name=business_name,
             Budget=budget,
             Source=source,
-            Services=services,
+            Services=services_text,
             Status=status,
             Business_Type=business_type,
             Priority=priority,
@@ -131,9 +156,15 @@ def exportdata(request):
     return response
 
 def editlead(request, lead_id):
+    Leadss = "active"
+    All_leads = Leads.objects.all()[::-1]
+    leaddtails = Leads.objects.get(id = lead_id)
+    leadheding = "Lead Details"
+    hidden = "container-hidden"
+    container_hidden = "container-hidden"
     container_hidden = 'container-hidden'
     lead = Leads.objects.get(id=lead_id)
-    return render(request, 'leads.html', {'lead':lead})
+    return render(request, 'leads.html', {'lead':lead,'Leadss':Leadss,'leadheding':leadheding})
 
 def updatedata(request, lead_id):
     mydata = Leads.objects.get(id=lead_id)
@@ -146,6 +177,7 @@ def updatedata(request, lead_id):
         budget = request.POST["Budget"]
         source = request.POST["Source"]
         services = request.POST.getlist('service')
+        services_text = ",   ".join(services)
         Source_Remarks = request.POST.get("Source_Remarks", "")
         status = request.POST["Status"]
         business_type = request.POST["Bussiness_types"]
@@ -159,7 +191,7 @@ def updatedata(request, lead_id):
         mydata.Business_Name = business_name
         mydata.Budget = budget
         mydata.Source = source
-        mydata.Services = services
+        mydata.Services = services_text
         mydata.Status = status
         mydata.Business_Type = business_type
         mydata.Priority = priority
@@ -195,4 +227,4 @@ def import_data(request):
                 Follow_up_date=row['EDD'],  
             )
         return redirect("newleads")
-    return redirect("newleads")
+    return redirect("index")

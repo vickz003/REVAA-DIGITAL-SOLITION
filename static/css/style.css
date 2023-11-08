@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap');
 
 :root {
     --light: #f6f6f9;
@@ -354,11 +354,8 @@ body{
     outline: none;
     border: none;
 }
-/* .content main .header .report input::placeholder{
-    color: red;
-} */
 
-.content main .header .report, .impormation a{
+.content main .header .report, .impormation a,.newleads-btn{
     height: 36px;
     padding: 0 16px;
     border-radius: 10px;
@@ -369,6 +366,7 @@ body{
     justify-content: center;
     grid-gap: 10px;
     font-weight: 500;
+    cursor: pointer;
 }
 
 .content main .insights{
@@ -517,17 +515,37 @@ body{
     font-weight: 700;
 }
 
-.content main .bottom-data .orders table tr td .status.Completed{
+.content main .bottom-data .orders table tr td .status{
     background: var(--success);
 }
 
-.content main .bottom-data .orders table tr td .status.Processing{
+.content main .bottom-data .orders table tr td .status.Fresh{
+    background: var(--success);
+}
+.content main .bottom-data .orders table tr td .status.Callback{
     background: var(--primary);
 }
 
-.content main .bottom-data .orders table tr td .status.Pending{
-    background: var(--warning);
+.content main .bottom-data .orders table tr td .status.DND{
+    background: var(--danger);
 }
+
+.content main .bottom-data .orders table tr td .status.Followup{
+    background: #D6D46D;
+}
+
+.content main .bottom-data .orders table tr td .status.Proposed{
+    background: #4BFC96;
+}
+
+.content main .bottom-data .orders table tr td .status.Moved{
+    background: #7752FE;
+}
+
+.content main .bottom-data .orders table tr td .status.Hold{
+    background: #739072;
+}
+
 
 .content main .bottom-data .reminders{
     flex-grow: 1;
@@ -698,6 +716,7 @@ body{
     width: 33.3333%;
     padding-left: 5px;
     overflow-x: hidden;
+    align-items: center;
 }
 .remark{
     width: 100%;
@@ -813,12 +832,12 @@ body{
     width: 280px;
     padding: 20px;
     color: var(--dark);
-    right: -400px;
-    z-index: 100000000;
+    top: -100vh;
+    font-size: medium;
 }
 .content  .show{
-    right: 0px;
-    top: 60px;
+    right: -150px;
+    top: 41px;
 }
 .content .notification h3{
 font-size: small;
@@ -852,6 +871,105 @@ font-size: small;
 .content .notification .tickets .notification-btns td:last-child{
     background-color: var(--danger);
 }
+
+
+/* ------------------------------------------------------------ */
+/* ---------------------------LOGIN CSS------------------------ */
+/* ------------------------------------------------------------ */
+
+.login-container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-repeat: no-repeat;
+}
+.inner-container{
+    background-color: var(--light-primary);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    padding: 20px;
+}
+.login-container .inner-container .login-cantant img{
+    margin-bottom: 20px;
+}
+.login-container .inner-container .login-cantant p{
+    
+    line-height: 25px;
+}
+.inner-container .login-cantant{
+    margin: 20px;
+}
+.login-container form{
+    background-color: var(--light);
+    padding: 25px;
+    border-radius: 10px;
+}
+.login-container form h1{
+    color: var(--primary);
+}
+
+.login-container form .form-outline{
+    width: 300px;
+    color: var(--dark);
+    font-size: medium;
+    margin-top: 20px;
+}
+.login-container form .form-outline input{
+    background-color: var(--grey);
+    color: var(--dark);
+    width: 100%;
+    font-size: medium;
+}
+.login-container form .form-outline p{
+    color: var(--danger);
+    font-size: small;
+    margin-top: 5px;
+}
+.eye-container{
+    position: relative;
+}
+.eye-container i{
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    cursor: pointer;
+}
+.submit-btn{
+    width: 100%;
+    margin-top: 20px;
+    outline: none;
+    border: none;
+    background-color: var(--primary);
+    color: var(--dark);
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.forgotpassword{
+    margin-top: 10px;
+    text-align: end;
+}
+
+.login-cantant{
+    max-width: 500px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
