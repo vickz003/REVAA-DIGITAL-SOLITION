@@ -142,11 +142,12 @@
                         </div>
                         <div class="impormation-container">
                             <div class="remark">
-                                <i class='bx bxl-product-hunt'></i>
-                                <p>
-                                    {{last_lead.Services}}
-                                    {{leaddtails.Services}}
-                                </p>
+                                <ul>
+                                    {% for service in services_list %}
+                                    <li>{{ service }}</li>
+                                    {% endfor %}
+                                </ul>
+                                
                             </div>
                         </div>
                         <div class="impormation-container">
@@ -249,7 +250,7 @@
                             <div class="edit-details">
                                 <div class="form-input">
                                     <label for="email">Email</label>
-                                    <input type="email" id="email" name="Email_id">
+                                    <input type="email" value="@gmail.com" id="email" name="Email_id">
                                 </div>
                                 
                                 <div class="form-input">
@@ -262,28 +263,34 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="edit-detail">
+                            <div class="edit-details">
                                 <div class="form-input">
-                                    <label for="Name">Services</label>
-                                    <div style="margin-top: 20px;">
-                                        <input type="checkbox" id="value1" name="service" value="Website Development">
-                                        <label class="label" for="value1">Website Development</label><br>
-                                        <input type="checkbox" id="value2" name="service" value="CRM">
-                                        <label class="label" for="value2">CRM</label><br>
-                                        <input type="checkbox" id="value3" name="service" value="Social Media Management">
-                                        <label class="label" for="value3">Social Media Management</label><br>
-                                        <input type="checkbox" id="value4" name="service" value="Branding">
-                                        <label class="label" for="value4">Branding</label><br>
-                                        <input type="checkbox" id="value5" name="service" value="Digital Marketing">
-                                        <label class="label" for="value5">Digital Marketing</label><br>
-                                        <input type="checkbox" id="value6" name="service" value="Yet to Confirm" checked>
-                                        <label class="label" for="value6">Yet to Confirm</label><br>
-                                    </div>
-                                </div>                                
+                                    <label for="">Services</label>
+                                    <ul id="services-list">
+                                        <li>Website Development</li>
+                                        <li>CRM</li>
+                                        <li>Social Media Management</li>
+                                        <li>Branding</li>
+                                        <li>Digital Marketing</li>
+                                        <li>Yet to Confirm</li>
+                                        <li id="more-btn">More</li>
+                                        <div class="input-container" id="input-container-id">
+                                            <label for="more-input">More</label><br>
+                                            <input type="text" id="more-input">
+                                            <button id="add-service-btn" type="button">Add To Services</button>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Hidden input field to store the selected services -->
+                            <input type="hidden" name="selected_services" id="selected-services-input">
+                            <div class="edit-detail">                                
                                 <div class="form-input">
                                     <label for="Name">Remark</label>
                                     <textarea name="Source_Remarks" id="" cols="30" rows="7"></textarea>
                                 </div>
+                            </div>
+                            <div class="edit-detail">
                                 <div class="form-input">
                                     <input type="submit" value="Submit">
                                 </div>
@@ -297,115 +304,122 @@
                 {% endif %}
 
 
-                    <div class="orders container-hidden" id="leads-big-container">
-                        <div class="header header-leads">
-                            <div class="leads-edit-name">
-                                <i class='bx bx-user' style="margin-right: 1rem;"></i>
-                                <h3>New Lead</h3>
+                <div class="orders container-hidden" id="leads-big-container">
+                    <div class="header header-leads">
+                        <div class="leads-edit-name">
+                            <i class='bx bx-user' style="margin-right: 1rem;"></i>
+                            <h3>New Lead</h3>
+                        </div>
+                    </div>
+                    <form action="newleads" method="POST">
+                        {% csrf_token %}
+                        <div class="edit-details">
+                            <div class="form-input">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="Name">
+                            </div>
+                            <div class="form-input">
+                                <label for="number">Mobile Number</label>
+                                <input type="number" id="number" name="Contact_Number">
+                            </div>
+                            <div class="form-input">
+                                <label for="b-name">Business Name</label>
+                                <input type="text" id="b-name" name="Business_name">
                             </div>
                         </div>
-                        <form action="newleads" method="POST">
-                            {% csrf_token %}
-                            <div class="edit-details">
-                                <div class="form-input">
-                                    <label for="name">Name</label>
-                                    <input type="text" id="name" name="Name">
-                                </div>
-                                <div class="form-input">
-                                    <label for="number">Mobile Number</label>
-                                    <input type="text" id="number" name="Contact_Number">
-                                </div>
-                                <div class="form-input">
-                                    <label for="b-name">Business Name</label>
-                                    <input type="text" id="b-name" name="Business_name">
-                                </div>
+                        <div class="edit-details">
+                            <div class="form-input">
+                                <label for="b-type">Business Type</label>
+                                <input type="text" id="b-type" name="Bussiness_types">
                             </div>
-                            <div class="edit-details">
-                                <div class="form-input">
-                                    <label for="b-type">Business Type</label>
-                                    <input type="text" id="b-type" name="Bussiness_types">
-                                </div>
-                                <div class="form-input">
-                                    <label for="location">Location</label>
-                                    <input type="text" id="location" name="Location">
-                                </div>
-                                <div class="form-input">
-                                    <label for="Budget">Budget</label>
-                                    <input type="text" id="Budget" name="Budget">
-                                </div>
+                            <div class="form-input">
+                                <label for="location">Location</label>
+                                <input type="text" id="location" name="Location">
+                              </div>
+                            <div class="form-input">
+                                <label for="Budget">Budget</label>
+                                <input type="text" id="Budget" name="Budget">
                             </div>
-                            <div class="edit-details">
-                                <div class="form-input">
-                                    <label for="fudate">Follow Up Date</label>
-                                    <input type="date" id="fudate" name="Followupdate">
-                                </div>
-                                <div class="form-input">
-                                    <label for="cars">Priority</label>
+                        </div>
+                        <div class="edit-details">
+                            <div class="form-input">
+                                <label for="fudate">Follow Up Date</label>
+                                <input type="date" id="fudate" name="Followupdate">
+                            </div>
+                            <div class="form-input">
+                                <label for="cars">Priority</label>
 
-                                    <select name="Priority" id="cars">
-                                    <option value="High">High</option>
-                                    <option value="Mediom">Mediom</option>
-                                    <option value="Low">Low</option>
-                                    </select>
-                                </div>
-                                <div class="form-input">
-                                    <label for="cars">Status</label>
-
-                                    <select name="Status" id="cars">
-                                    <option value="Fresh">Fresh</option>
-                                    <option value="Call back">Call back</option>
-                                    <option value="DND">DND</option>
-                                    <option value="Follow Up">Follow Up</option>
-                                    <option value="Proposed">Proposed</option>
-                                    <option value="Moved">Moved</option>
-                                    <option value="Hold">Hold</option>
-                                    </select>
-                                </div>
+                                <select name="Priority" id="cars">
+                                <option value="High">High</option>
+                                <option value="Mediom">Mediom</option>
+                                <option value="Low">Low</option>
+                                </select>
                             </div>
-                            <div class="edit-details">
-                                <div class="form-input">
-                                    <label for="email">Email</label>
-                                    <input type="email" id="email" name="Email_id">
-                                </div>
-                                
-                                <div class="form-input">
-                                    <label for="cars">Source</label>
+                            <div class="form-input">
+                                <label for="cars">Status</label>
 
-                                    <select id="cars" name="Source">
-                                        <option>Social Media</option>
-                                        <option>Walk In</option>
-                                        <option>Reference</option>
-                                    </select>
-                                </div>
+                                <select name="Status" id="cars">
+                                <option value="Fresh">Fresh</option>
+                                <option value="Call back">Call back</option>
+                                <option value="DND">DND</option>
+                                <option value="Follow Up">Follow Up</option>
+                                <option value="Proposed">Proposed</option>
+                                <option value="Moved">Moved</option>
+                                <option value="Hold">Hold</option>
+                                </select>
                             </div>
-                            <div class="edit-detail">
-                                <div class="form-input">
-                                    <label for="Name">Services</label>
-                                    <div style="margin-top: 20px;">
-                                        <input type="checkbox" id="value1" name="service" value="Website Development">
-                                        <label class="label" for="value1">Website Development</label><br>
-                                        <input type="checkbox" id="value2" name="service" value="CRM">
-                                        <label class="label" for="value2">CRM</label><br>
-                                        <input type="checkbox" id="value3" name="service" value="Social Media Management">
-                                        <label class="label" for="value3">Social Media Management</label><br>
-                                        <input type="checkbox" id="value4" name="service" value="Branding">
-                                        <label class="label" for="value4">Branding</label><br>
-                                        <input type="checkbox" id="value5" name="service" value="Digital Marketing">
-                                        <label class="label" for="value5">Digital Marketing</label><br>
-                                        <input type="checkbox" id="value6" name="service" value="Yet to Confirm" checked>
-                                        <label class="label" for="value6">Yet to Confirm</label><br>
+                        </div>
+                        <div class="edit-details">
+                            <div class="form-input">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="Email_id">
+                            </div>
+                            
+                            <div class="form-input">
+                                <label for="cars">Source</label>
+
+                                <select id="cars" name="Source">
+                                    <option>Social Media</option>
+                                    <option>Walk In</option>
+                                    <option>Reference</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="edit-details">
+                            <div class="form-input">
+                                <label for="">Services</label>
+                                <ul id="services-list">
+                                    <li>Website Development</li>
+                                    <li>CRM</li>
+                                    <li>Social Media Management</li>
+                                    <li>Branding</li>
+                                    <li>Digital Marketing</li>
+                                    <li>Yet to Confirm</li>
+                                    <li id="more-btn">More</li>
+                                    <div class="input-container" id="input-container-id">
+                                        <label for="more-input">More</label><br>
+                                        <input type="text" id="more-input">
+                                        <button id="add-service-btn" type="button">Add To Services</button>
                                     </div>
-                                </div>                                
-                                <div class="form-input">
-                                    <label for="Name">Remark</label>
-                                    <textarea name="Source_Remarks" id="" cols="30" rows="7"></textarea>
-                                </div>
-                                <div class="form-input">
-                                    <input type="submit" value="Submit">
-                                </div>
+                                </ul>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <!-- Hidden input field to store the selected services -->
+                        <input type="hidden" name="selected_services" id="selected-services-input">
+                        <div class="edit-detail">                                
+                            <div class="form-input">
+                                <label for="Name">Remark</label>
+                                <textarea name="Source_Remarks" id="" cols="30" rows="7"></textarea>
+                            </div>
+                        </div>
+                        <div class="edit-detail">
+                            <div class="form-input">
+                                <input type="submit" value="Add Lead">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
                     <label for="images" class="drop-container container-hidden" id="dropcontainer">
                         <span class="drop-title">Drop files here</span>
                         <br><br>
@@ -434,7 +448,7 @@
                                 <h3>Edit Lead</h3>
                             </div>
                         </div>
-                        <form action="updates" method="POST">
+                        <form action="update" method="POST">
                             {% csrf_token %}
                             <div class="edit-details">
                                 <div class="form-input">
@@ -443,95 +457,93 @@
                                 </div>
                                 <div class="form-input">
                                     <label for="number">Mobile Number</label>
-                                    <input type="text" id="number" name="Contact_Number" value="{{lead.Mobile_Number}}">
+                                    <input type="text" id="number" name="Contact_Number" value="{{lead.Name}}">
                                 </div>
                                 <div class="form-input">
                                     <label for="b-name">Business Name</label>
-                                    <input type="text" id="b-name" name="Business_name" value="{{lead.Business_Name}}">
+                                    <input type="text" id="b-name" name="Business_name" value="{{lead.Name}}">
                                 </div>
                             </div>
                             <div class="edit-details">
                                 <div class="form-input">
                                     <label for="b-type">Business Type</label>
-                                    <input type="text" id="b-type" name="Bussiness_types" value="{{lead.Business_Type}}">
+                                    <input type="text" id="b-type" name="Bussiness_types" value="{{lead.Name}}">
                                 </div>
                                 <div class="form-input">
                                     <label for="location">Location</label>
-                                    <input type="text" id="location" name="Location"value="{{lead.Location}}">
+                                    <input type="text" id="location" name="Location" value="{{lead.Name}}">
                                 </div>
                                 <div class="form-input">
                                     <label for="Budget">Budget</label>
-                                    <input type="text" id="Budget" name="Budget" value="{{lead.Budget}}">
+                                    <input type="text" id="Budget" name="Budget" value="{{lead.Name}}">
                                 </div>
                             </div>
                             <div class="edit-details">
                                 <div class="form-input">
                                     <label for="fudate">Follow Up Date</label>
-                                    <input type="date" id="fudate" name="Followupdate" value="{{ lead.Follow_up_date|date:'Y-m-d' }}">
+                                    <input type="date" id="fudate" name="Followupdate" value="{{lead.Name}}">
                                 </div>
                                 <div class="form-input">
                                     <label for="cars">Priority</label>
+    
                                     <select name="Priority" id="cars">
-                                        <option value="High" {% if lead.Priority == "High" %}selected{% endif %}>High</option>
-                                        <option value="Mediom" {% if lead.Priority == "Mediom" %}selected{% endif %}>Mediom</option>
-                                        <option value="Low" {% if lead.Priority == "Low" %}selected{% endif %}>Low</option>
+                                    <option value="High">High</option>
+                                    <option value="Mediom">Mediom</option>
+                                    <option value="Low">Low</option>
                                     </select>
                                 </div>
-                                
                                 <div class="form-input">
                                     <label for="cars">Status</label>
-
-                                    <select name="Status" id="Status">
-                                    <option value="Fresh" {% if lead.Status == "Fresh" %} selected{% endif %}>Fresh</option>
-                                    <option value="Call back" {% if lead.Status == "Call back" %} selected{% endif %}>Call back</option>
-                                    <option value="DND" {% if lead.Status == "DND" %} selected{% endif %}>DND</option>
-                                    <option value="Follow Up" {% if lead.Status == "Follow Up" %} selected{% endif %}>Follow Up</option>
-                                    <option value="Proposed" {% if lead.Status == "Proposed" %} selected{% endif %}>Proposed</option>
-                                    <option value="Moved" {% if lead.Status == "Moved" %} selected{% endif %}>Moved</option>
-                                    <option value="Hold" {% if lead.Status == "Hold" %} selected{% endif %}>Hold</option>
+    
+                                    <select name="Status" id="cars">
+                                    <option value="Fresh">Fresh</option>
+                                    <option value="Call back">Call back</option>
+                                    <option value="DND">DND</option>
+                                    <option value="Follow Up">Follow Up</option>
+                                    <option value="Proposed">Proposed</option>
+                                    <option value="Moved">Moved</option>
+                                    <option value="Hold">Hold</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="edit-details">
                                 <div class="form-input">
                                     <label for="email">Email</label>
-                                    <input type="email" id="email" name="Email_id" value="{{lead.Email}}">
+                                    <input type="email" id="email" name="Email_id">
                                 </div>
                                 
                                 <div class="form-input">
                                     <label for="cars">Source</label>
-
-                                    <select id="Source" name="Source">
-                                        <option {% if lead.Source == "Social Media" %} selected{% endif %}>Social Media</option>
-                                        <option {% if lead.Source == "Walk In" %} selected{% endif %}>Walk In</option>
-                                        <option {% if lead.Source == "Reference" %} selected{% endif %}>Reference</option>
+    
+                                    <select id="cars" name="Source">
+                                        <option>Social Media</option>
+                                        <option>Walk In</option>
+                                        <option>Reference</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="edit-detail">
+                            <div class="edit-details">
                                 <div class="form-input">
-                                    <label for="Name">Services</label>
-                                    <div style="margin-top: 20px;">
-                                        <input {% if "Website Development" in lead.Services %} checked {% endif %} type="checkbox" id="value11" name="service" value="Website Development">
-                                        <label class="label" for="value11">Website Development</label><br>
-                                        <input {% if "CRM" in lead.Services %} checked {% endif %} type="checkbox" id="value12" name="service" value="CRM">
-                                        <label class="label" for="value12">CRM</label><br>
-                                        <input {% if "Social Media Management" in lead.Services %} checked {% endif %} type="checkbox" id="value13" name="service" value="Social Media Management">
-                                        <label class="label" for="value13">Social Media Management</label><br>
-                                        <input {% if "Branding" in lead.Services %} checked {% endif %} type="checkbox" id="value14" name="service" value="Branding">
-                                        <label class="label" for="value14">Branding</label><br>
-                                        <input {% if "Digital Marketing" in lead.Services %} checked {% endif %} type="checkbox" id="value15" name="service" value="Digital Marketing">
-                                        <label class="label" for="value15">Digital Marketing</label><br>
-                                        <input {% if "Yet to Confirm" in lead.Services %} checked {% endif %} type="checkbox" id="value16" name="service" value="Yet to Confirm">
-                                        <label class="label" for="value16">Yet to Confirm</label><br>
-                                    </div>
-                                </div>                                 
-                                <div class="form-input">
-                                    <label for="Name">Remark</label>
-                                    <textarea name="Source_Remarks" id="" cols="30" rows="7">{{lead.Remark}}</textarea>
+                                    <label for="">Services</label>
+                                    <ul id="services-list">
+                                        {% for service in services_list %}
+                                            <li>{{ service }}</li>
+                                        {% endfor %}
+                                        <!-- <li id="more-btn">More</li> -->
+                                        <div class="input-container" id="input-container-id">
+                                            <label for="more-input">More</label><br>
+                                            <input type="text" id="more-input">
+                                            <button id="add-service-btn" type="button">Add To Services</button>
+                                        </div>
+                                    </ul>
                                 </div>
+                            </div>
+                            <!-- Hidden input field to store the selected services -->
+                            <input type="hidden" name="selected_services" id="selected-services-input">
+                                                      
+                            <div class="edit-detail" style="display: block;">
                                 <div class="form-input">
-                                    <input type="submit" value="UPDATE">
+                                    <input type="submit" value="Add Lead">
                                 </div>
                             </div>
                         </form>

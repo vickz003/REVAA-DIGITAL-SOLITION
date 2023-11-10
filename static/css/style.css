@@ -461,7 +461,7 @@ body{
 
 .content main .bottom-data .orders{
     flex-grow: 1;
-    /* flex-basis: 500px; */
+    flex-basis: 500px;
 }
 
 .content main .bottom-data .active-new-lead{
@@ -641,7 +641,10 @@ body{
     width: 100%;
     padding: 10px;
 }
-.edit-details .form-input input, select{
+ button{
+    background-color: var(--primary);
+}
+.edit-details .form-input input, select, button{
     height: 40px;
     background-color: var(--grey);
     outline: none;
@@ -652,11 +655,44 @@ body{
     color: var(--dark);
     margin-top: 0.3rem;
 }
+button{
+    background-color: var(--primary);
+    cursor: pointer;
+}
+.edit-details .form-input ul{
+    display: flex;
+    flex-wrap: wrap;
+}
+.edit-details .form-input ul li{
+    margin: 10px;
+    border: 1px solid var(--dark);
+    padding: 10px;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.edit-details .form-input ul li i{
+    color: var(--danger);
+    margin-left: 5px;
+}
+
+.edit-details .form-input ul li.selected {
+    background-color: var(--success);
+}
+
+.input-container {
+    display: none;
+}
+.show-input-container{
+    display: block;
+}
+
 .edit-detail{
     display: flex;
     align-items: end;
     justify-content: space-between;
-    margin-top: 2rem;
 }
 .edit-detail .form-input{
     display: flex;
@@ -713,10 +749,22 @@ body{
 }
 .impormation,.remark{
     display: flex;
+    flex-wrap: wrap;
     width: 33.3333%;
     padding-left: 5px;
     overflow-x: hidden;
     align-items: center;
+}
+.impormation,.remark ul{
+    display: flex;
+    flex-wrap: wrap;
+}
+.remark ul li{
+    padding: 5px;
+    margin: 10px;
+    border: 1px solid var(--dark);
+    border-radius: 50px;
+    background-color: var(--grey);
 }
 .remark{
     width: 100%;
@@ -725,8 +773,14 @@ body{
     font-size: small;
 }
 
-.impormation i,.remark i{
+.impormation i{
+    display: flex;
+    background-color:var(--grey);
+    padding: 10px;
+    border-radius: 50px;
     margin-right: 10px;
+    font-size: medium;
+
 }
 .impormation-container{
     display: flex;
@@ -820,6 +874,32 @@ body{
 }  
 
 
+
+.ui-autocomplete {
+    background-color: var(--light);
+    border: 1px solid var(--grey);
+    color: var(--dark);
+    padding: 10px;
+    max-height: 130px;
+    width: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    line-height: 22px;
+    margin-top: 5px !important;
+    font-size: small;
+
+  }
+  
+  /* IE 6 doesn't support max-height
+   * we use height instead, but this forces the menu to always be this tall
+   */
+  * html .ui-autocomplete {
+    height: 100px;
+  }
+  
+
+  
+
 /* ----------------------------------------------- */
 /* ---------------NOTIFICATION-------------------- */
 /* ----------------------------------------------- */
@@ -836,7 +916,7 @@ body{
     font-size: medium;
 }
 .content  .show{
-    right: -150px;
+    right: -60px;
     top: 41px;
 }
 .content .notification h3{

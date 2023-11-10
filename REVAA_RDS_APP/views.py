@@ -11,6 +11,7 @@ from openpyxl.styles import Font, PatternFill
 import pandas as pd 
 from REVAA_RDS_APP.models import Leads
 from django.contrib.auth import authenticate, login, logout
+import json
 
 
 # Create your views here.
@@ -67,10 +68,12 @@ def leads(request):
     Leadss = "active"
     All_leads = Leads.objects.all()[::-1]
     last_lead = Leads.objects.last()
+    service_list = str(last_lead.Services)
+    services = [service.strip() for service in service_list.split(",")]
     leadheding = "Last Lead"
     container_hidden = 'container-hidden'
 
-    return render(request, 'leads.html',{'leads':All_leads,'last_lead':last_lead,'leadheding':leadheding,'Leadss':Leadss,'container_hidden':container_hidden})
+    return render(request, 'leads.html',{'services_list': services,'leads':All_leads,'last_lead':last_lead,'leadheding':leadheding,'Leadss':Leadss,'container_hidden':container_hidden})
 
 def calls(request):
     return render(request, 'calls.html')
@@ -96,8 +99,9 @@ def newleads(request):
         business_name = request.POST["Business_name"]
         budget = request.POST["Budget"]
         source = request.POST["Source"]
-        services = request.POST.getlist('service')
-        services_text = ",   ".join(services)
+        selected_services_json = request.POST.get('selected_services')
+        selected_services = json.loads(selected_services_json)
+        services_text = ", ".join(selected_services)
         Source_Remarks = request.POST.get("Source_Remarks", "")
         status = request.POST["Status"]
         business_type = request.POST["Bussiness_types"]
@@ -157,14 +161,13 @@ def exportdata(request):
 
 def editlead(request, lead_id):
     Leadss = "active"
-    All_leads = Leads.objects.all()[::-1]
-    leaddtails = Leads.objects.get(id = lead_id)
     leadheding = "Lead Details"
-    hidden = "container-hidden"
-    container_hidden = "container-hidden"
-    container_hidden = 'container-hidden'
     lead = Leads.objects.get(id=lead_id)
-    return render(request, 'leads.html', {'lead':lead,'Leadss':Leadss,'leadheding':leadheding})
+    service_list = str(lead.Services)
+    services = [service.strip() for service in service_list.split(",")]
+
+    return render(request, 'leads.html', {'lead': lead, 'Leadss': Leadss, 'leadheding': leadheding, 'services_list': services})
+
 
 def updatedata(request, lead_id):
     mydata = Leads.objects.get(id=lead_id)
@@ -191,7 +194,7 @@ def updatedata(request, lead_id):
         mydata.Business_Name = business_name
         mydata.Budget = budget
         mydata.Source = source
-        mydata.Services = services_text
+        # mydata.Services = services_text
         mydata.Status = status
         mydata.Business_Type = business_type
         mydata.Priority = priority
