@@ -221,13 +221,13 @@ body{
     margin-right: auto;
 }
 
-.content nav form .form-input{
+.content nav form .forminput{
     display: flex;
     align-items: center;
     height: 36px;
 }
 
-.content nav form .form-input input{
+.content nav form .forminput input{
     flex-grow: 1;
     padding: 0 16px;
     height: 100%;
@@ -238,9 +238,23 @@ body{
     width: 100%;
     color: var(--dark);
 }
+.forminput{
+    height: 40px;
+}
 
-.content nav form .form-input button{
-    width: 80px;
+.serach-container .forminput{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.serach-container .forminput input{
+    background-color: var(--light);
+    margin: 0;
+    height: 100%;
+}
+
+.serach-container .forminput button,.serach-container .forminput a{
+    width: 50px;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -250,9 +264,11 @@ body{
     font-size: 18px;
     border: none;
     outline: none;
-    border-radius: 0 36px 36px 0;
     cursor: pointer;
-}
+    margin: 0;
+    border-radius: 5px;
+    margin-left: 5px;
+} 
 
 .content nav .notif{
     font-size: 20px;
@@ -266,7 +282,6 @@ body{
     width: 20px;
     height: 20px;
     background: var(--danger);
-    border-radius: 50%;
     color: var(--light);
     border: 2px solid var(--light);
     font-weight: 700;
@@ -311,6 +326,7 @@ body{
 
 .content main{
     width: 100%;
+    height: 100vh;
     padding: 10px 24px;
     max-height: calc(100vh - 56px);
 }
@@ -565,6 +581,10 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
+}
+.content main .bottom-data .reminders .task-list .options ul .selected{
+    background-color: var(--success) !important;
 }
 
 .content main .bottom-data .reminders .task-list li .task-title{
@@ -602,7 +622,7 @@ body{
 }
 
 .leads-container{
-    height: 85vh;
+    height: 100vh;
     flex-basis: 300px !important;
     flex-grow:0 !important;
 }
@@ -682,6 +702,10 @@ button{
     background-color: var(--success);
 }
 
+.bottom-data .reminders .task-list .options ul li  {
+    background-color: var(--grey) ;
+}
+
 .input-container {
     display: none;
 }
@@ -693,6 +717,10 @@ button{
     display: flex;
     align-items: end;
     justify-content: space-between;
+}
+.edit-detail-btn input{
+    background-color: var(--primary);
+    cursor: pointer;
 }
 .edit-detail .form-input{
     display: flex;
@@ -773,15 +801,15 @@ button{
     font-size: small;
 }
 
-.impormation i{
+.impormation i, .remark-icon{
     display: flex;
     background-color:var(--grey);
     padding: 10px;
     border-radius: 50px;
     margin-right: 10px;
     font-size: medium;
-
 }
+
 .impormation-container{
     display: flex;
     align-items: center;
@@ -1040,13 +1068,30 @@ font-size: small;
 }
 
 
+/*  */
+/*  */
+/*  */
 
+.options{
+    margin-bottom: 20px;
+}
+.options ul li{
+    width: fit-content !important;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.options ul{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: self-start;
+}
 
-
-
-
-
-
+.options {
+    display: none;
+}
+.options.show-options {
+    display: block;
+}
 
 
 
@@ -1147,7 +1192,7 @@ font-size: small;
     background-color:transparent;
   }
   ::-webkit-scrollbar:horizontal{
-    width: 10px;
+    width: 1px;
     height: 8px;
   }
   ::-webkit-scrollbar-track:horizontal{

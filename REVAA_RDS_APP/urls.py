@@ -6,6 +6,10 @@ urlpatterns = [
     path('login',views.login_page, name='login'),
     path('logout',views.logout_page, name='logout'),
     path('leads',views.leads, name='leads'),
+    path('leads/filter',views.filter, name='filter'),
+
+
+
     path('leads/<int:lead_id>/edit',views.editlead, name='editlead'),
     path('leads/<int:lead_id>/updates',views.updatedata, name='update'),
     path('newleads',views.newleads, name='newleads'),

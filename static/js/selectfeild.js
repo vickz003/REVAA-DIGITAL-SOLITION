@@ -35,19 +35,23 @@ $(function () {
         "Virugambakkam", "Vyasarpadi", "Washermanpet", "West CIT Nagar", "West K.K. Nagar", "West Mambalam", "Mogappair West",
         "West Saidapet"
     ];
-  
-    $("#location").autocomplete({
+
+  $("#location").autocomplete({
       source: function (request, response) {
-        var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
-        response($.grep(chennaiLocalAreas, function (item) {
-          return matcher.test(item);
-        }));
+          var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+          response($.grep(chennaiLocalAreas, function (item) {
+              return matcher.test(item);
+          }));
       },
-      minLength: 0
-    }).focus(function () {
+      minLength: 0,
+      messages: {
+          noResults: '', // Set to empty string to hide the message
+          results: function () {} // Set to an empty function to hide the message
+      }
+  }).focus(function () {
       $(this).data("uiAutocomplete").search('');
-    });
   });
+});
   
 
 // -----------------------------------------------------------------------------------------
@@ -69,16 +73,20 @@ $(function () {
       "90,000 - 1,00,000",
       "1,00,000 - Above",
     ];
-  
-    $("#Budget").autocomplete({
+    
+  $("#Budget").autocomplete({
       source: function (request, response) {
-        var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
-        response($.grep(chennaiLocalAreas, function (item) {
-          return matcher.test(item);
-        }));
+          var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+          response($.grep(chennaiLocalAreas, function (item) {
+              return matcher.test(item);
+          }));
       },
-      minLength: 0
-    }).focus(function () {
+      minLength: 0,
+      messages: {
+          noResults: '', // Set to empty string to hide the message
+          results: function () {} // Set to an empty function to hide the message
+      }
+  }).focus(function () {
       $(this).data("uiAutocomplete").search('');
-    });
   });
+});

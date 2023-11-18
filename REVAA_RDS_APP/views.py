@@ -66,6 +66,7 @@ def index(request):
 
 def leads(request):
     Leadss = "active"
+    lead_contant = "show"
     All_leads = Leads.objects.all()[::-1]
     last_lead = Leads.objects.last()
     service_list = str(last_lead.Services)
@@ -73,7 +74,13 @@ def leads(request):
     leadheding = "Last Lead"
     container_hidden = 'container-hidden'
 
-    return render(request, 'leads.html',{'services_list': services,'leads':All_leads,'last_lead':last_lead,'leadheding':leadheding,'Leadss':Leadss,'container_hidden':container_hidden})
+    return render(request, 'leads.html',{'services_list': services,'leads':All_leads,'last_lead':last_lead,'leadheding':leadheding,'Leadss':Leadss,'container_hidden':container_hidden,'lead_contant':lead_contant})
+
+
+def filter(request):
+    filter_contant = "show"
+    return render(request, 'leads.html',{'filter_contant':filter_contant})
+
 
 def calls(request):
     return render(request, 'calls.html')
@@ -87,7 +94,9 @@ def lead_detail(request, lead_id):
     container_hidden = "container-hidden"
 
     lead = get_object_or_404(Leads, pk=lead_id)
-    context = {'lead': lead,'leads':All_leads,'leaddtails':leaddtails,'leadheding':leadheding,'hidden':hidden,'Leadss':Leadss,'container_hidden':container_hidden}
+    service_list = str(lead.Services)
+    services = [service.strip() for service in service_list.split(",")]
+    context = {'lead': lead,'leads':All_leads,'leaddtails':leaddtails,'leadheding':leadheding,'hidden':hidden,'Leadss':Leadss,'container_hidden':container_hidden,'services_list': services}
     return render(request, 'leads.html', context)
 
 def newleads(request):
@@ -162,11 +171,12 @@ def exportdata(request):
 def editlead(request, lead_id):
     Leadss = "active"
     leadheding = "Lead Details"
+    edit_contant = "show"
     lead = Leads.objects.get(id=lead_id)
     service_list = str(lead.Services)
     services = [service.strip() for service in service_list.split(",")]
 
-    return render(request, 'leads.html', {'lead': lead, 'Leadss': Leadss, 'leadheding': leadheding, 'services_list': services})
+    return render(request, 'leads.html', {'lead': lead, 'Leadss': Leadss, 'leadheding': leadheding, 'services_list': services,'edit_contant':edit_contant})
 
 
 def updatedata(request, lead_id):

@@ -1,31 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Chennai Local Areas - Autocomplete</title>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <style>
-    .ui-autocomplete {
-      max-height: 100px;
-      overflow-y: auto;
-      /* prevent horizontal scrollbar */
-      overflow-x: hidden;
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector('.task-list').addEventListener('click', function (event) {
+        var clickedElement = event.target;
+        var optionsContainer = clickedElement.nextElementSibling;
+
+        if (clickedElement.classList.contains('completed') && optionsContainer) {
+            hideAllOptionContainers(optionsContainer.id);
+            optionsContainer.classList.toggle("show-options");
+        }
+    });
+
+    function hideAllOptionContainers(excludeOptionsDivId) {
+        var allOptionContainers = document.querySelectorAll('.options');
+        allOptionContainers.forEach(function (container) {
+            if (container.id !== excludeOptionsDivId) {
+                container.classList.remove('show-options');
+            }
+        });
     }
-    /* IE 6 doesn't support max-height
-     * we use height instead, but this forces the menu to always be this tall
-     */
-    * html .ui-autocomplete {
-      height: 100px;
-    }
-  </style>
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-    $(function () {
-      var chennaiLocalAreas = [
-        "Abhiramapuram", "Adambakkam", "Adyar", "Agaram", "Alandur", "Alapakkam", "Alwarpet", "Alwarthirunagar",
+
+
+    // Autocomplete functionality for the location options
+    $("#location-options").autocomplete({
+        source: function (request, response) {
+            // Replace this with your actual data source or API call
+            var availableLocations = [
+        "Out of Chennai","Abhiramapuram", "Adambakkam", "Adyar", "Agaram", "Alandur", "Alapakkam", "Alwarpet", "Alwarthirunagar",
         "Ambattur", "Ambattur Industrial Estate", "Ambattur OT", "Aminjikarai", "Anna Nagar", "Anna Nagar East",
         "Anna Nagar Western Extension", "Anna Nagar West", "Anna Road", "Anna Salai", "Arcot Road", "Arumbakkam",
         "Ashok Nagar", "Attipatttu", "Avadi", "Ayanavaram", "Ayyappanthangal", "Besant Nagar", "Broadway",
@@ -58,28 +57,18 @@
         "Urapakkam", "Valasaravakkam", "Vanagaram", "Velachery", "Velachery Main Road", "Vepery", "Villivakkam",
         "Virugambakkam", "Vyasarpadi", "Washermanpet", "West CIT Nagar", "West K.K. Nagar", "West Mambalam", "Mogappair West",
         "West Saidapet"
-      ];
-
-      $("#tags").autocomplete({
-        source: function (request, response) {
-          var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
-          response($.grep(chennaiLocalAreas, function (item) {
-            return matcher.test(item);
-          }));
+            ];
+            var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+            response($.grep(availableLocations, function (item) {
+                return matcher.test(item);
+            }));
         },
-        minLength: 0
-      }).focus(function () {
-        $(this).data("uiAutocomplete").search('');
-      });
+        minLength: 0,
+        messages: {
+            noResults: '',
+            results: function () {}
+        }
     });
-  </script>
-</head>
-<body>
+});
 
-<div class="ui-widget">
-  <label for="tags">Chennai Local Areas: </label>
-  <input id="tags">
-</div>
 
-</body>
-</html>
